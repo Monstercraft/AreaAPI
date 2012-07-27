@@ -37,11 +37,18 @@ public class AreaAPI extends JavaPlugin implements Listener {
 					.getBlockAt(10, 10, 10), Bukkit.getServer()
 					.getWorld("test").getBlockAt(0, 0, 0));
 			area3 = new SinglePlaneArea(Bukkit.getServer().getWorld("test")
-					.getBlockAt(-10, -10, -10), Bukkit.getServer()
-					.getWorld("test").getBlockAt(-20, -10, -20));
-			area4 = new PolygonalArea(new Block[] { Bukkit.getServer()
-					.getWorld("test").getBlockAt(10, 10, 10), Bukkit.getServer()
-					.getWorld("test").getBlockAt(10, 15, 10) });
+					.getBlockAt(-0, 65, -10), Bukkit.getServer()
+					.getWorld("test").getBlockAt(10, 65, 10));
+			area4 = new PolygonalArea(
+					new Block[] {
+							Bukkit.getServer().getWorld("test")
+									.getBlockAt(-9, 64, 6),
+							Bukkit.getServer().getWorld("test")
+									.getBlockAt(-10, 64, 6),
+							Bukkit.getServer().getWorld("test")
+									.getBlockAt(-15, 64, 6),
+							Bukkit.getServer().getWorld("test")
+									.getBlockAt(-12, 64, 4) });
 		} catch (InvalidWorldException e1) {
 			e1.printStackTrace();
 		} catch (InvalidPlaneException e) {
