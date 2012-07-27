@@ -36,7 +36,7 @@ public class SinglePlaneArea {
 		this.maxz = AreaAPI.getMaxZ(l1, l2);
 		this.minx = AreaAPI.getMinX(l1, l2);
 		this.minz = AreaAPI.getMinZ(l1, l2);
-		this.plane = (int) l1.getZ();
+		this.plane = (int) l1.getY();
 		this.world = l1.getWorld();
 	}
 

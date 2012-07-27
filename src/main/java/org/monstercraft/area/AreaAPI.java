@@ -37,7 +37,7 @@ public class AreaAPI extends JavaPlugin implements Listener {
 					.getBlockAt(10, 10, 10), Bukkit.getServer()
 					.getWorld("test").getBlockAt(0, 0, 0));
 			area3 = new SinglePlaneArea(Bukkit.getServer().getWorld("test")
-					.getBlockAt(-0, 65, -10), Bukkit.getServer()
+					.getBlockAt(-10, 65, -10), Bukkit.getServer()
 					.getWorld("test").getBlockAt(10, 65, 10));
 			area4 = new PolygonalArea(
 					new Block[] {
