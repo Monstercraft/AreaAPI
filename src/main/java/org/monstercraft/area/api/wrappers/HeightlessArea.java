@@ -50,7 +50,7 @@ public class HeightlessArea {
 		return maxx;
 	}
 
-	public double getMaxY() {
+	public double getMaxZ() {
 		return maxz;
 	}
 
@@ -58,7 +58,7 @@ public class HeightlessArea {
 		return minx;
 	}
 
-	public double getMinY() {
+	public double getMinZ() {
 		return minz;
 	}
 
@@ -84,7 +84,7 @@ public class HeightlessArea {
 
 	public boolean contains(Location loc) {
 		return loc.getWorld().equals(world) ? loc.getX() < maxx
-				&& loc.getY() < maxz && loc.getX() > minx && loc.getY() > minz
+				&& loc.getZ() < maxz && loc.getX() > minx && loc.getZ() > minz
 				: false;
 	}
 
