@@ -14,12 +14,12 @@
 	<scm>
 		<connection>scm:git:git://github.com/Monstercraft/AreaAPI.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/Monstercraft/AreaAPI.git</developerConnection>
-		<url>https://github.com/Monstercraft/MonsterMOTD</url>
+		<url>https://github.com/Monstercraft/AreaAPI</url>
 	</scm>
 
 	<ciManagement>
 		<system>Jenkins</system>
-		<url>http://dev.monstercraft.org:8080/job/AreaAPI/url>
+		<url>http://dev.monstercraft.org:8080/job/AreaAPI</url>
 	</ciManagement>
 
 	<repositories>
