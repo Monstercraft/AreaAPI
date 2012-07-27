@@ -96,11 +96,11 @@ public class SinglePlaneArea {
 	}
 
 	public boolean contains(Location loc) {
-		return (((int) loc.getY()) == plane && loc.getWorld().equals(world)) ? loc
+		return ((int) loc.getY() == plane && loc.getWorld().equals(world)) ? loc
 				.getX() < maxx
-				&& loc.getY() < maxz
+				&& loc.getZ() < maxz
 				&& loc.getX() > minx
-				&& loc.getY() > minz : false;
+				&& loc.getZ() > minz : false;
 	}
 
 	public void expand(Direction d, int amount)
