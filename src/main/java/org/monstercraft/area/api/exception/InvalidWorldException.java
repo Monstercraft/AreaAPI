@@ -6,7 +6,13 @@ public class InvalidWorldException extends Exception {
 	 */
 	private static final long serialVersionUID = -377655525836615679L;
 
-	public InvalidWorldException(final String message) {
-		super(message);
+	/**
+	 * An exception to be thrown when worlds are invalid.
+	 * 
+	 * @param error
+	 *            The error message.
+	 */
+	public InvalidWorldException(final String error) {
+		super(error);
 	}
 }
