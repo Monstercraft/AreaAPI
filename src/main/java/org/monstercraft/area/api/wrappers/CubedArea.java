@@ -102,7 +102,8 @@ public class CubedArea {
 	public boolean contains(Location loc) {
 		return loc.getWorld().equals(world) ? loc.getX() < maxx
 				&& loc.getY() < maxy && loc.getX() > minx && loc.getY() > miny
-				&& loc.getZ() < maxz && loc.getZ() > minz : false;
+				&& loc.getZ() < maxz && loc.getZ() > minz && loc.getZ() < maxz
+				: false;
 	}
 
 	public void expand(Direction d, int amount)

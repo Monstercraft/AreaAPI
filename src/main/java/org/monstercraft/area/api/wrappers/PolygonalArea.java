@@ -8,11 +8,11 @@ public class PolygonalArea {
 
 	private Location[] locations;
 
-	public PolygonalArea(final Location[] locations) {
+	public PolygonalArea(final Location... locations) {
 		this.locations = locations;
 	}
 
-	public PolygonalArea(final Block[] blocks) {
+	public PolygonalArea(final Block... blocks) {
 		Location[] locations = new Location[blocks.length];
 		for (int i = 0; i < blocks.length; i++) {
 			locations[i] = blocks[i].getLocation();
@@ -20,7 +20,7 @@ public class PolygonalArea {
 		this.locations = locations;
 	}
 
-	public PolygonalArea(final Player[] players) {
+	public PolygonalArea(final Player... players) {
 		Location[] locations = new Location[players.length];
 		for (int i = 0; i < players.length; i++) {
 			locations[i] = players[i].getLocation();

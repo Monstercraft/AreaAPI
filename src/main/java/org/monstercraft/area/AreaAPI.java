@@ -4,29 +4,48 @@ import java.io.IOException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.monstercraft.area.api.exception.InvalidPlaneException;
 import org.monstercraft.area.api.exception.InvalidWorldException;
 import org.monstercraft.area.api.wrappers.CubedArea;
+import org.monstercraft.area.api.wrappers.HeightlessArea;
+import org.monstercraft.area.api.wrappers.PolygonalArea;
+import org.monstercraft.area.api.wrappers.SinglePlaneArea;
 import org.monstercraft.area.metrics.Metrics;
 
 public class AreaAPI extends JavaPlugin implements Listener {
 
 	// TESTING PHASE
-	private CubedArea area;
+	private CubedArea area1;
+	private HeightlessArea area2;
+	private SinglePlaneArea area3;
+	private PolygonalArea area4;
 
 	// END TESTING
 
 	public void onEnable() {
 		// START TESTING
 		try {
-			area = new CubedArea(Bukkit.getServer().getWorld("test")
+			area1 = new CubedArea(Bukkit.getServer().getWorld("test")
 					.getBlockAt(10, 10, 10), Bukkit.getServer()
-					.getWorld("test").getBlockAt(-10, -10, -10));
+					.getWorld("test").getBlockAt(20, 20, 20));
+			area2 = new HeightlessArea(Bukkit.getServer().getWorld("test")
+					.getBlockAt(10, 10, 10), Bukkit.getServer()
+					.getWorld("test").getBlockAt(0, 0, 0));
+			area3 = new SinglePlaneArea(Bukkit.getServer().getWorld("test")
+					.getBlockAt(-10, -10, -10), Bukkit.getServer()
+					.getWorld("test").getBlockAt(-20, -10, -20));
+			area4 = new PolygonalArea(new Block[] { Bukkit.getServer()
+					.getWorld("test").getBlockAt(10, 10, 10), Bukkit.getServer()
+					.getWorld("test").getBlockAt(10, 15, 10) });
 		} catch (InvalidWorldException e1) {
 			e1.printStackTrace();
+		} catch (InvalidPlaneException e) {
+			e.printStackTrace();
 		}
 		Bukkit.getPluginManager().registerEvents(this, this);
 		// END TESTING
@@ -41,8 +60,17 @@ public class AreaAPI extends JavaPlugin implements Listener {
 	// START TESTING
 	@EventHandler
 	public void onPlacement(BlockPlaceEvent event) {
-		if (area.contains(event.getBlock())) {
-			System.out.println("Yup the block was placed within the area.");
+		if (area1.contains(event.getBlock())) {
+			System.out.println("Yup the block was placed within the area1.");
+		}
+		if (area2.contains(event.getBlock())) {
+			System.out.println("Yup the block was placed within the area2.");
+		}
+		if (area3.contains(event.getBlock())) {
+			System.out.println("Yup the block was placed within the area3.");
+		}
+		if (area4.contains(event.getBlock())) {
+			System.out.println("Yup the block was placed within the area4.");
 		}
 	}
 

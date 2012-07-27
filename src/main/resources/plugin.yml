@@ -1,4 +1,4 @@
-name: MonsterTickets
+name: AreaAPI
 main: org.monstercraft.area.AreaAPI
 version: '${project.version}'
 author: Fletch_to_99
