@@ -65,7 +65,7 @@ public class HeightlessArea {
 	public World getWorld() {
 		return world;
 	}
-	
+
 	public double getWidth() {
 		return maxz - minz;
 	}
@@ -88,7 +88,8 @@ public class HeightlessArea {
 				: false;
 	}
 
-	public void expand(Direction d, int amount) throws InvalidDirectionException {
+	public void expand(Direction d, int amount)
+			throws InvalidDirectionException {
 		if (d.equals(Direction.ALL) || d.equals(Direction.UP)
 				|| d.equals(Direction.DOWN)) {
 			throw new InvalidDirectionException("Cannot expand in direction "
@@ -109,7 +110,8 @@ public class HeightlessArea {
 		}
 	}
 
-	public void shrink(Direction d, int amount) throws InvalidDirectionException {
+	public void shrink(Direction d, int amount)
+			throws InvalidDirectionException {
 		if (d.equals(Direction.ALL) || d.equals(Direction.UP)
 				|| d.equals(Direction.DOWN)) {
 			throw new InvalidDirectionException("Cannot expand in direction "

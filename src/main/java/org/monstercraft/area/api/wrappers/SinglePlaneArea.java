@@ -96,7 +96,6 @@ public class SinglePlaneArea {
 	}
 
 	public boolean contains(Location loc) {
-		System.out.println(loc.getY() + " | " + plane);
 		return ((int) loc.getY() == plane && loc.getWorld().equals(world)) ? loc
 				.getX() < maxx
 				&& loc.getZ() < maxz
