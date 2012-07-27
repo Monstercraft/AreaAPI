@@ -1,0 +1,5 @@
+name: MonsterTickets
+main: org.monstercraft.area.AreaAPI
+version: '${project.version}'
+author: Fletch_to_99
+description: An API used to create areas.

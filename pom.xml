@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.monstercraft.motd</groupId>
+	<artifactId>MonsterMOTD</artifactId>
+	<version>1.00</version>
+
+	<properties>
+		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+	</properties>
+
+	<scm>
+		<connection>scm:git:git://github.com/Monstercraft/MonsterMOTD.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/Monstercraft/MonsterMOTD.git</developerConnection>
+		<url>https://github.com/Monstercraft/MonsterMOTD</url>
+	</scm>
+
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>http://dev.monstercraft.org:8080/job/MonsterMOTD</url>
+	</ciManagement>
+
+	<repositories>
+	    <repository>
+            <id>bukkit-repo</id>
+            <url>http://repo.bukkit.org/content/groups/public/</url>
+        </repository>
+	</repositories>
+
+	<dependencies>
+	    <dependency>
+	      <groupId>org.bukkit</groupId>
+	      <artifactId>bukkit</artifactId>
+	      <version>[1.2.5-R4.0,)</version>
+	      <type>jar</type>
+	    </dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<targetPath>.</targetPath>
+				<directory>${basedir}/src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>config.yml</include>
+					<include>plugin.yml</include>
+				</includes>
+			</resource>
+			<resource>
+                <targetPath>.</targetPath>
+                <directory>${basedir}</directory>
+                <includes>
+                    <include>LICENSE</include>
+                </includes>
+            </resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+			</plugin>
+		</plugins>
+	</build>
+</project>
