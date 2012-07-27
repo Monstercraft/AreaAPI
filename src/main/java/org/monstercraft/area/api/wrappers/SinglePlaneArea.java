@@ -26,7 +26,7 @@ public class SinglePlaneArea {
 
 	private SinglePlaneArea(Location l1, Location l2, String type)
 			throws InvalidPlaneException, InvalidWorldException {
-		if ((int) l1.getZ() != (int) l2.getZ()) {
+		if ((int) l1.getY() != (int) l2.getY()) {
 			throw new InvalidPlaneException(type + " on seprate planes");
 		}
 		if (!l1.getWorld().equals(l2.getWorld())) {
@@ -96,7 +96,7 @@ public class SinglePlaneArea {
 	}
 
 	public boolean contains(Location loc) {
-		return (((int) loc.getZ()) == plane && loc.getWorld().equals(world)) ? loc
+		return (((int) loc.getY()) == plane && loc.getWorld().equals(world)) ? loc
 				.getX() < maxx
 				&& loc.getY() < maxz
 				&& loc.getX() > minx
