@@ -45,4 +45,12 @@ public class PolygonalArea {
 		return false;
 	}
 
+	public Block[] getBlocks() {
+		Block[] blocks = new Block[locations.length];
+		for (int i = 0; i < locations.length; i++) {
+			blocks[i] = locations[i].getBlock();
+		}
+		return blocks;
+	}
+
 }

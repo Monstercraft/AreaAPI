@@ -1,5 +1,7 @@
 package org.monstercraft.area.api.wrappers;
 
+import java.util.ArrayList;
+
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -130,6 +132,32 @@ public class HeightlessArea {
 		} else if (d.equals(Direction.WEST)) {
 			this.minx = minx + amount;
 		}
+	}
+
+	public Block[] getBlocks() {
+		ArrayList<Block> tileList = new ArrayList<Block>();
+		int y = 0;
+		do {
+			int x = (int) getMinX();
+			do {
+				int z = (int) getMinZ();
+				do {
+					if (this.contains(world.getBlockAt(x, y, z))) {
+						tileList.add(world.getBlockAt(x, y, z));
+					}
+					z++;
+				} while (z <= getMaxZ());
+				x++;
+			} while (x <= getMaxX());
+			y++;
+		} while (y <= world.getMaxHeight());
+		Block[] tileArray = new Block[tileList.size()];
+		int j = 0;
+		while (j < tileList.size()) {
+			tileArray[j] = tileList.get(j);
+			j++;
+		}
+		return tileArray;
 	}
 
 }
