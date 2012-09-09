@@ -1,12 +1,18 @@
 package org.monstercraft.area.api.wrappers;
 
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.monstercraft.area.api.Direction;
+import org.monstercraft.area.api.exception.InvalidDirectionException;
+import org.monstercraft.area.api.exception.InvalidWorldException;
 
-public class PolygonalArea {
+public class PolygonalArea extends Area {
 
 	private Location[] locations;
+
+	private World world;
 
 	/**
 	 * Creates a Polygonal area with the blocks specified.
@@ -14,12 +20,19 @@ public class PolygonalArea {
 	 * @param players
 	 *            The blocks to create the area at.
 	 */
-	public PolygonalArea(final Block... blocks) {
+	public PolygonalArea(final Block... blocks) throws InvalidWorldException {
 		Location[] locations = new Location[blocks.length];
 		for (int i = 0; i < blocks.length; i++) {
 			locations[i] = blocks[i].getLocation();
 		}
+		World world = locations[0].getWorld();
+		for (Location l : locations) {
+			if (l.getWorld() != world) {
+				throw new InvalidWorldException("Blocks on seprate worlds");
+			}
+		}
 		this.locations = locations;
+		this.world = world;
 	}
 
 	/**
@@ -28,8 +41,16 @@ public class PolygonalArea {
 	 * @param players
 	 *            The locations to create the area at.
 	 */
-	public PolygonalArea(final Location... locations) {
+	public PolygonalArea(final Location... locations)
+			throws InvalidWorldException {
+		World world = locations[0].getWorld();
+		for (Location l : locations) {
+			if (l.getWorld() != world) {
+				throw new InvalidWorldException("Locations on seprate worlds");
+			}
+		}
 		this.locations = locations;
+		this.world = world;
 	}
 
 	/**
@@ -95,6 +116,36 @@ public class PolygonalArea {
 			blocks[i] = locations[i].getBlock();
 		}
 		return blocks;
+	}
+
+	/**
+	 * Fetches the total amount of blocks within the area.
+	 * 
+	 * @return The total amount of blocks within the area.
+	 */
+	public int getTotalBlocks() {
+		return getBlocks().length;
+	}
+
+	public void shift(Direction direction, int amount)
+			throws InvalidDirectionException {
+		throw new InvalidDirectionException("Cannot shift this area.");
+	}
+
+	public void expand(Direction direction, int amount)
+			throws InvalidDirectionException {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void shrink(Direction direction, int amount)
+			throws InvalidDirectionException {
+		// TODO Auto-generated method stub
+
+	}
+
+	public World getWorld() {
+		return world;
 	}
 
 }

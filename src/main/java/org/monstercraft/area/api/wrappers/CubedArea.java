@@ -11,7 +11,7 @@ import org.monstercraft.area.api.Direction;
 import org.monstercraft.area.api.exception.InvalidDirectionException;
 import org.monstercraft.area.api.exception.InvalidWorldException;
 
-public class CubedArea {
+public class CubedArea extends Area {
 
 	private double maxx;
 
@@ -102,10 +102,10 @@ public class CubedArea {
 	 * @return True if the area contains the location; otherwise false.
 	 */
 	public boolean contains(Location loc) {
-		return loc.getWorld().equals(world) ? loc.getX() < maxx
-				&& loc.getY() < maxy && loc.getX() > minx && loc.getY() > miny
-				&& loc.getZ() < maxz && loc.getZ() > minz && loc.getZ() < maxz
-				: false;
+		return loc.getWorld().equals(world) ? loc.getX() <= maxx
+				&& loc.getY() <= maxy && loc.getX() >= minx
+				&& loc.getY() >= miny && loc.getZ() <= maxz
+				&& loc.getZ() >= minz && loc.getZ() <= maxz : false;
 	}
 
 	/**
@@ -132,29 +132,41 @@ public class CubedArea {
 	public void expand(Direction d, int amount)
 			throws InvalidDirectionException {
 		if (d.equals(Direction.ALL)) {
-			this.maxz = maxz + amount;
-			this.maxx = maxx + amount;
-			this.maxy = maxy + amount;
-			this.minx = minx - amount;
-			this.minz = minz - amount;
-			this.miny = miny - amount;
+			if (this.miny - amount < 0) {
+				throw new InvalidDirectionException("Minimum height reached");
+			}
+			if (this.maxy + amount > world.getMaxHeight()) {
+				throw new InvalidDirectionException("Maximum height reached");
+			}
+			this.maxz += amount;
+			this.maxx += amount;
+			this.maxy += amount;
+			this.minx -= amount;
+			this.minz -= amount;
+			this.miny -= amount;
 		} else if (d.equals(Direction.SIDES)) {
-			this.maxz = maxz + amount;
-			this.maxx = maxx + amount;
-			this.minx = minx - amount;
-			this.minz = minz - amount;
+			this.maxz += amount;
+			this.maxx += amount;
+			this.minx -= amount;
+			this.minz -= amount;
 		} else if (d.equals(Direction.UP)) {
-			this.maxy = maxy + amount;
+			if (this.maxy + amount > world.getMaxHeight()) {
+				throw new InvalidDirectionException("Maximum height reached");
+			}
+			this.maxy += amount;
 		} else if (d.equals(Direction.DOWN)) {
-			this.miny = miny - amount;
+			if (this.miny - amount < 0) {
+				throw new InvalidDirectionException("Minimum height reached");
+			}
+			this.miny -= amount;
 		} else if (d.equals(Direction.WEST)) {
-			this.minx = minx - amount;
+			this.minx -= amount;
 		} else if (d.equals(Direction.NORTH)) {
-			this.minz = minz - amount;
+			this.minz -= amount;
 		} else if (d.equals(Direction.SOUTH)) {
-			this.maxz = maxz + amount;
+			this.maxz += amount;
 		} else if (d.equals(Direction.EAST)) {
-			this.maxx = maxx + amount;
+			this.maxx += amount;
 		} else {
 			throw new InvalidDirectionException("Invalid direction specified");
 		}
@@ -183,12 +195,7 @@ public class CubedArea {
 			y++;
 		} while (y <= getMaxY());
 		Block[] tileArray = new Block[tileList.size()];
-		int j = 0;
-		while (j < tileList.size()) {
-			tileArray[j] = tileList.get(j);
-			j++;
-		}
-		return tileArray;
+		return tileList.toArray(tileArray);
 	}
 
 	/**
@@ -294,31 +301,51 @@ public class CubedArea {
 	public void shrink(Direction d, int amount)
 			throws InvalidDirectionException {
 		if (d.equals(Direction.ALL)) {
-			this.maxz = maxz - amount;
-			this.maxx = maxx - amount;
-			this.maxy = maxy - amount;
-			this.minx = minx + amount;
-			this.minz = minz + amount;
-			this.miny = miny + amount;
+			this.maxz -= amount;
+			this.maxx -= amount;
+			this.maxy -= amount;
+			this.minx += amount;
+			this.minz += amount;
+			this.miny += amount;
 		} else if (d.equals(Direction.SIDES)) {
-			this.maxz = maxz - amount;
-			this.maxx = maxx - amount;
-			this.minx = minx + amount;
-			this.minz = minz + amount;
+			this.maxz -= amount;
+			this.maxx -= amount;
+			this.minx += amount;
+			this.minz += amount;
 		} else if (d.equals(Direction.UP)) {
-			this.maxy = maxy - amount;
+			this.maxy -= amount;
 		} else if (d.equals(Direction.DOWN)) {
-			this.miny = miny + amount;
+			this.miny += amount;
 		} else if (d.equals(Direction.NORTH)) {
-			this.minz = minz + amount;
+			this.minz += amount;
 		} else if (d.equals(Direction.SOUTH)) {
-			this.maxz = maxz - amount;
+			this.maxz -= amount;
 		} else if (d.equals(Direction.EAST)) {
-			this.maxx = maxx - amount;
+			if (this.maxx - amount < minx) {
+				throw new InvalidDirectionException("");
+			}
+			this.maxx -= amount;
 		} else if (d.equals(Direction.WEST)) {
-			this.minx = minx + amount;
+			if (this.minx + amount > maxx) {
+				throw new InvalidDirectionException("");
+			}
+			this.minx += amount;
 		} else {
 			throw new InvalidDirectionException("Invalid direction specified");
 		}
+	}
+
+	/**
+	 * Fetches the total amount of blocks within the area.
+	 * 
+	 * @return The total amount of blocks within the area.
+	 */
+	public int getTotalBlocks() {
+		return (int) getLength() * (int) getWidth() * (int) getHeight();
+	}
+
+	public void shift(Direction direction, int amount) {
+		// TODO Auto-generated method stub
+
 	}
 }

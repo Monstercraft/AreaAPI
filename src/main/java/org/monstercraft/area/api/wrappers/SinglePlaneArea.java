@@ -12,7 +12,7 @@ import org.monstercraft.area.api.exception.InvalidDirectionException;
 import org.monstercraft.area.api.exception.InvalidPlaneException;
 import org.monstercraft.area.api.exception.InvalidWorldException;
 
-public class SinglePlaneArea {
+public class SinglePlaneArea extends Area {
 
 	private double maxx;
 
@@ -113,10 +113,10 @@ public class SinglePlaneArea {
 	 */
 	public boolean contains(Location loc) {
 		return ((int) loc.getY() == plane && loc.getWorld().equals(world)) ? loc
-				.getX() < maxx
-				&& loc.getZ() < maxz
-				&& loc.getX() > minx
-				&& loc.getZ() > minz : false;
+				.getX() <= maxx
+				&& loc.getZ() <= maxz
+				&& loc.getX() >= minx
+				&& loc.getZ() >= minz : false;
 	}
 
 	/**
@@ -147,18 +147,18 @@ public class SinglePlaneArea {
 			throw new InvalidDirectionException("Cannot expand in direction "
 					+ d.toString());
 		} else if (d.equals(Direction.SIDES)) {
-			this.maxz = maxz + amount;
-			this.maxx = maxx + amount;
-			this.minx = minx - amount;
-			this.minz = minz - amount;
+			this.maxz += amount;
+			this.maxx += amount;
+			this.minx -= amount;
+			this.minz -= amount;
 		} else if (d.equals(Direction.NORTH)) {
-			this.minz = minz - amount;
+			this.minz -= amount;
 		} else if (d.equals(Direction.SOUTH)) {
-			this.maxz = maxz + amount;
+			this.maxz += amount;
 		} else if (d.equals(Direction.EAST)) {
-			this.maxx = maxx + amount;
+			this.maxx += amount;
 		} else if (d.equals(Direction.WEST)) {
-			this.minx = minx - amount;
+			this.minx -= amount;
 		}
 	}
 
@@ -181,12 +181,7 @@ public class SinglePlaneArea {
 			x++;
 		} while (x <= getMaxX());
 		Block[] tileArray = new Block[tileList.size()];
-		int j = 0;
-		while (j < tileList.size()) {
-			tileArray[j] = tileList.get(j);
-			j++;
-		}
-		return tileArray;
+		return tileList.toArray(tileArray);
 	}
 
 	/**
@@ -278,18 +273,34 @@ public class SinglePlaneArea {
 			throw new InvalidDirectionException("Cannot expand in direction "
 					+ d.toString());
 		} else if (d.equals(Direction.SIDES)) {
-			this.maxz = maxz - amount;
-			this.maxx = maxx - amount;
-			this.minx = minx + amount;
-			this.minz = minz + amount;
+			this.maxz -= amount;
+			this.maxx -= amount;
+			this.minx += amount;
+			this.minz += amount;
 		} else if (d.equals(Direction.NORTH)) {
-			this.minz = minz + amount;
+			this.minz += amount;
 		} else if (d.equals(Direction.SOUTH)) {
-			this.maxz = maxz - amount;
+			this.maxz -= amount;
 		} else if (d.equals(Direction.EAST)) {
-			this.maxx = maxx - amount;
+			this.maxx -= amount;
 		} else if (d.equals(Direction.WEST)) {
-			this.minx = minx + amount;
+			this.minx += amount;
 		}
+	}
+
+	/**
+	 * Fetches the total amount of blocks within the area.
+	 * 
+	 * @return The total amount of blocks within the area.
+	 */
+	public int getTotalBlocks() {
+		return (int) getLength() * (int) getWidth();
+	}
+
+	@Override
+	public void shift(Direction direction, int amount)
+			throws InvalidDirectionException {
+		// TODO Auto-generated method stub
+		
 	}
 }
