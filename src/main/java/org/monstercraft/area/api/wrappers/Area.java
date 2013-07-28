@@ -9,7 +9,7 @@ import org.monstercraft.area.api.exception.InvalidDirectionException;
 
 public abstract class Area {
 
-	public abstract boolean contains(Player block);
+	public abstract boolean contains(Player player);
 
 	public abstract boolean contains(Block block);
 
